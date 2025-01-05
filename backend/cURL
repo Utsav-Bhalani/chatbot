@@ -1,0 +1,61 @@
+curl -X POST \
+    "https://api.langflow.astra.datastax.com/lf/92a41258-0190-40c1-a368-3dc33445d371/api/v1/run/41198578-e513-4efd-8ffe-0c89a355a926?stream=false" \
+    -H 'Content-Type: application/json'\
+    -H "Authorization: Bearer <YOUR_APPLICATION_TOKEN>"\
+    -d '{"input_value": "message",
+    "output_type": "chat",
+    "input_type": "chat",
+    "tweaks": {
+  "APIRequest-LGyhR": {
+    "body": "{}",
+    "curl": "curl --request GET \\   --url \"https://cd986089-fdf9-4367-ab19-b478ea2c9d43-eu-west-1.apps.astra.datastax.com/api/rest/v2/keyspaces/raj/social_media/rows\" \\   --header \"Content-Type: application/json\" \\   --header \"X-Cassandra-Token: AstraCS:gaTdxDslWtFXXoSZpptlHfzu:a8ae64340e083029b80eaae38507c49822dcd0ede1c2509410f90356cc1f4f19\"",
+    "headers": "{\"Content-Type\":\"application/json\",\"X-Cassandra-Token\":\"AstraCS:gaTdxDslWtFXXoSZpptlHfzu:a8ae64340e083029b80eaae38507c49822dcd0ede1c2509410f90356cc1f4f19\"}",
+    "method": "GET",
+    "timeout": 5,
+    "urls": [
+      "https://cd986089-fdf9-4367-ab19-b478ea2c9d43-eu-west-1.apps.astra.datastax.com/api/rest/v2/keyspaces/raj/social_media/rows"
+    ]
+  },
+  "ParseData-ZMDuB": {
+    "sep": "\n",
+    "template": "{data}"
+  },
+  "GroqModel-6KFWN": {
+    "groq_api_base": "https://api.groq.com",
+    "groq_api_key": "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",
+    "input_value": "",
+    "max_tokens": null,
+    "model_name": "llama-3.1-8b-instant",
+    "n": null,
+    "stream": false,
+    "system_message": "",
+    "temperature": 0.1
+  },
+  "ChatOutput-aUUtV": {
+    "background_color": "",
+    "chat_icon": "",
+    "data_template": "{text}",
+    "input_value": "",
+    "sender": "Machine",
+    "sender_name": "AI",
+    "session_id": "",
+    "should_store_message": true,
+    "text_color": ""
+  },
+  "Prompt-DTNJe": {
+    "template": "{context}\n\nanswer from given context above in only 2 lines and must include an simple reason with numerical metrics without showing any calculations just simple return number. if question is out of context then simply return \"Sorry I can't help you with that.\"\n\nAnswer : \n",
+    "context": ""
+  },
+  "ChatInput-KZ5l6": {
+    "files": "",
+    "background_color": "",
+    "chat_icon": "",
+    "input_value": "give me comparison between post on instagram vs linkedin",
+    "sender": "User",
+    "sender_name": "User",
+    "session_id": "",
+    "should_store_message": true,
+    "text_color": ""
+  }
+}}'
+    
