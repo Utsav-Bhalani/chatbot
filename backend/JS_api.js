@@ -1,3 +1,4 @@
+require('dotenv').config(); 
 class LangflowClient {
     constructor(baseURL, applicationToken) {
         this.baseURL = baseURL;
@@ -71,9 +72,9 @@ class LangflowClient {
 }
 
 module.exports = async function runMain(inputValue, inputType = 'chat', outputType = 'chat', stream = false) {
-    const flowIdOrName = '41198578-e513-4efd-8ffe-0c89a355a926';
-    const langflowId = '92a41258-0190-40c1-a368-3dc33445d371';
-    const applicationToken = 'AstraCS:JdnEdDMrkdBGIaigtYXzgBTX:726772603207c56df589437e839c7c6b7eaa6d1cda426701435a36114f22b90d';
+    const flowIdOrName = process.env.FLOW_ID; // Read from environment
+    const langflowId = process.env.LANGFLOW_ID; // Read from environment
+    const applicationToken = process.env.LANGFLOW_APP_TOKEN; // Read from environment
     const langflowClient = new LangflowClient('https://api.langflow.astra.datastax.com', applicationToken);
 
     try {

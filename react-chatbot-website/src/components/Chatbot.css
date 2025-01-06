@@ -21,7 +21,7 @@
     :root {
       --primary-color: #64b5f6;
       --secondary-color: #37474f;
-      --text-color: #e0e0e0;
+      --text-color: #000000;
       --text-color-light: #ffffff;
       --background-gradient: linear-gradient(160deg, #263238 0%, #37474f 100%);
       --message-user-bg: var(--primary-color);
