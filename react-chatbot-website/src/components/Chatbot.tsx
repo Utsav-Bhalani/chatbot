@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './Chatbot.css';
 
 type Message = {
   sender: 'user' | 'bot';
@@ -9,53 +10,53 @@ type Message = {
 const Chatbot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
 
   const sendMessage = async () => {
     if (!input.trim()) return; // Prevent sending empty messages
 
     const userMessage: Message = { sender: 'user', text: input };
     setMessages((prev) => [...prev, userMessage]);
+    setInput(''); // Clear input field
+    setLoading(true); // Show loader
 
     try {
       const response = await axios.post('http://localhost:5000/chatbot', { userInput: input });
       const botMessage: Message = { sender: 'bot', text: response.data.response || 'No response.' };
       setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error('Error:', error.message);
-      } else {
-        console.error('Error:', error);
-      }
       const botMessage: Message = { sender: 'bot', text: 'Error connecting to chatbot.' };
       setMessages((prev) => [...prev, botMessage]);
+    } finally {
+      setLoading(false); // Hide loader
     }
+  };
 
-    setInput(''); // Clear the input box after sending
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      sendMessage();
+    }
   };
 
   return (
-    <div>
-      <div>
+    <div className="chat-container">
+      <div className="chat-window">
         {messages.map((msg, index) => (
-          <div key={index} style={{ textAlign: msg.sender === 'user' ? 'right' : 'left', margin: '10px 0' }}>
-            <p>{msg.text}</p>
+          <div key={index} className={`message ${msg.sender}`}>
+            {msg.text}
           </div>
         ))}
+        {loading && <div className="loader"></div>}
       </div>
-      <div style={{ display: 'flex', marginTop: '10px' }}>
+      <div className="input-area">
         <input
           type="text"
-          value={input} // Bind input value to the state
-          onChange={(e) => setInput(e.target.value)} // Update state when input changes
-          placeholder="Type your message here..."
-          style={{ flex: 1, padding: '10px', fontSize: '16px', border: '1px solid #ccc', borderRadius: '5px' }}
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown} // Trigger sendMessage on Enter
+          placeholder="Type your message..."
         />
-        <button
-          onClick={sendMessage}
-          style={{ marginLeft: '10px', padding: '10px 20px', fontSize: '16px', backgroundColor: '#007BFF', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}
-        >
-          Send
-        </button>
+        <button onClick={sendMessage}>Send</button>
       </div>
     </div>
   );
