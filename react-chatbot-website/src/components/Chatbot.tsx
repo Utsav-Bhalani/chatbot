@@ -21,7 +21,7 @@ const Chatbot: React.FC = () => {
     setLoading(true); // Show loader
 
     try {
-      const response = await axios.post('http://localhost:5000/chatbot', { userInput: input });
+      const response = await axios.post('https://chatbot-m1t6.onrender.com/chatbot', { userInput: input });
       const botMessage: Message = { sender: 'bot', text: response.data.response || 'No response.' };
       setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
